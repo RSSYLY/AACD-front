@@ -4,9 +4,10 @@ import axios from 'axios';
 // 使用说明：
 // import { get, post } from './AxioRequest.js'
 //
+const baseURL = 'http://goto8.ddns.666old666.cn:47765';
 
 const http = axios.create({
-    baseURL: 'http://goto8.ddns.666old666.cn:47765/', // 后端接口
+    baseURL: baseURL, // 后端接口
     timeout: 5000, // 设置超时时间
 });
 
@@ -38,3 +39,4 @@ export function post(url, data) {
     return http.post(url, data);
 }
 
+export { baseURL }
