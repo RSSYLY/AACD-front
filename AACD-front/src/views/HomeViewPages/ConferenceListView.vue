@@ -1,18 +1,24 @@
 <script>
 import {get,post,baseURL} from '@/utril/AxioRequest.js'
+import Md from '@/components/Md.vue'
 export default {
+  components: {Md},
   data(){
     return{
       conferenceList:{
       },
       currentDate: new Date().toLocaleString(),
       groupedConferences: {},
-      baseURL:baseURL
+      baseURL:baseURL,
+      // 默认会议详情对话框的内容，当打开对话框时会包含指定的会议信息
+      showingConference:{content:'sb'}
     }
   },
   mounted() {
+    // 更新时间
     this.updateDate();
     setInterval(this.updateDate, 1000);
+    // 获取会议列表
     this.getConferenceDateList(1,25,null,null,['coverImg','f_821go86slk0','createdBy'])
   },
   methods: {
@@ -96,8 +102,16 @@ export default {
         } catch (error) {
           console.error(error)
         }
+    },
+    openConferenceInfoDialog(id) {
+      // 打开会议详情对话框
+      const conference = this.conferenceList.data.find(conference => conference.id === id);
+      if (conference) {
+        const dialog = document.querySelector('.con-info-dialog');
+        dialog.open = true;
+        // 设置对话框内容，包含会议信息，会议信息会在对话框中显示，这里只是简单的设置了一个字符串，实际上应该是一个包含会议信息的对象， 例如 { title: '会议标题', content: '会议内容' }，这个对象应该是从后端获取的，  也可以是一个包含会议信息的对象数组，这样可以实现在对话框中显示多个会议信息，  例如 [{ title: '会议1标题', content: '会议1内容' }, { title: '会议2标题', content: '会议2内容' }]
+        this.showingConference = conference;}
     }
-
     }
 
 }
@@ -123,7 +137,7 @@ export default {
             <div class="main-list-day" v-for="dayGroup in monthGroup.data" :key="dayGroup.day">
               <div class="main-list-day-title">{{monthGroup.month}}月{{ dayGroup.day }}日</div>
               <div class="main-list-day-content">
-                <div class="main-list-item" v-for="conference in dayGroup.data" :key="conference.id">
+                <div class="main-list-item" v-for="conference in dayGroup.data" :key="conference.id" @click="openConferenceInfoDialog(conference.id)">
                   <div class="main-list-item-location"><mdui-icon name='location_on' style="margin-right: 5px;font-size: var(--mdui-typescale-label-large-size)"></mdui-icon><span  v-for="locationName in conference.f_821go86slk0" :key="locationName.id"> {{ locationName.name }}</span></div>
 <!--                  TODO: 图片-->
                   <div class="main-list-item-cover">
@@ -140,6 +154,9 @@ export default {
       </div>
     </div>
   </div>
+  <mdui-dialog fullscreen class="con-info-dialog" close-on-esc="true">
+    <Md :md-content="this.showingConference.content" />
+  </mdui-dialog>
 
 </template>
 
@@ -258,8 +275,8 @@ export default {
 }
 .main-list-item-description{
   padding: 10px;
-  font-size: var(--mdui-typescale-label-medium-size);
-  font-weight: var(--mdui-typescale-label-small-weight);
+  font-size: var(--mdui-typescale-title-small-size);
+  font-weight: var(--mdui-typescale-title-small-weight);
 }
 @media screen and (max-width: 600px){
   .main-list-day-content{

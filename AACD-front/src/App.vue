@@ -10,6 +10,6 @@ setColorScheme('#ff5500')
   <RouterView />
 </template>
 
-<style scoped>
+<style>
 
 </style>
