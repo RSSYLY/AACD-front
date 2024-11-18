@@ -34,3 +34,15 @@ const router = createRouter({
 })
 
 export default router
+
+
+// 路由拦截器
+router.beforeEach((to, from, next) => {
+  if (to.path === '/') {
+    next('/conference-list');
+  } else {
+    next();
+  }
+});
+
+

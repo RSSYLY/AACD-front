@@ -15,7 +15,7 @@ const http = axios.create({
 
 http.interceptors.request.use(config => {
     // 添加token
-    config.headers['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGVOYW1lIjoiYWRtaW4iLCJpYXQiOjE3MzA5NzAxMTUsImV4cCI6MzMyODg1NzAxMTV9.n2E-U-cWj1ju20fqm859cpYHmB3yy1xrUVBEF7Oic48';
+    config.headers['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGVOYW1lIjoibWVtYmVyIiwiaWF0IjoxNzMxOTE5NzY2LCJleHAiOjMzMjg5NTE5NzY2fQ.ETmb91ICMdZuBqfElRhm2X50s8LA22u3PJIzad9aVhI';
     return config;
 }, error => {
     // 对请求错误做些什么
