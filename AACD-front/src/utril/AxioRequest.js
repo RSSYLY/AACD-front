@@ -4,7 +4,7 @@ import axios from 'axios';
 // 使用说明：
 // import { get, post } from './AxioRequest.js'
 //
-const baseURL = 'http://goto8.ddns.666old666.cn:47765';
+const baseURL = 'https://goto8.ddns.666old666.cn:47765';
 
 const http = axios.create({
     baseURL: baseURL, // 后端接口
