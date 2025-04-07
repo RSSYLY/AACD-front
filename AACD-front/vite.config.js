@@ -23,7 +23,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://goto8.ddns.666old666.cn:47765',
+        target: 'http://xxxxx',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
